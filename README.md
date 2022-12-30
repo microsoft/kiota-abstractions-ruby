@@ -1,6 +1,6 @@
 # Kiota Abstractions Library for Ruby
 
-![Ruby](https://github.com/microsoft/kiota/actions/workflows/ruby.yml/badge.svg)
+![Ruby](https://github.com/microsoft/kiota-abstractions-ruby/actions/workflows/ruby.yml/badge.svg)
 
 The Kiota abstractions Library for go is the go library defining the basic constructs Kiota projects need once an SDK has been generated from an OpenAPI definition.
 

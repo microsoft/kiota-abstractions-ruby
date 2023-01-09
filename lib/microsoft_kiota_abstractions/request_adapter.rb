@@ -21,5 +21,10 @@ module MicrosoftKiotaAbstractions
       raise NotImplementedError.new
     end
 
+    # Converts the given RequestInformation into a native HTTP request.
+    def convert_to_native_request_async(request_info)
+      raise NotImplementedError.new
+    end
+
   end
 end

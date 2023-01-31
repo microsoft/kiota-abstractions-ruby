@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'microsoft_kiota_abstractions'
   spec.version       = MicrosoftKiotaAbstractions::VERSION
   spec.authors       = 'Microsoft Corporation'
-  spec.email         = 'graphsdkpub@microsoft.com'
+  spec.email         = 'graphsdkpub+ruby@microsoft.com'
   spec.description   = 'Microsoft Kiota Abstractions - Ruby abstractions for building library agnostic http client'
   spec.summary       = 'The Kiota abstractions are language specific libraries defining the basic constructs Kiota projects need once an SDK has been generated from an OpenAPI definition.'
   spec.homepage      = 'https://microsoft.github.io/kiota/'
@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
     'source_code_uri' => 'https://github.com/microsoft/kiota-abstractions-ruby',
     'github_repo'     => 'ssh://github.com/microsoft/kiota-abstractions-ruby'
   }
-  spec.required_ruby_version = '>= 2.7.0'
+  spec.required_ruby_version = '>= 3.0.0'
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.

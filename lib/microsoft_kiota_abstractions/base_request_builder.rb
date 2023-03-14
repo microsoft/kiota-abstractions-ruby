@@ -1,4 +1,6 @@
 module MicrosoftKiotaAbstractions
+    ## 
+    # Base class for request builders. Performs basic validation and defines common properties.
     class BaseRequestBuilder
         ## 
         # Path parameters for the request

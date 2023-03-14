@@ -15,8 +15,8 @@ module MicrosoftKiotaAbstractions
         attr_accessor :query_parameters
 
         def initialize
-           @headers = RequestHeaders.new()
-           @options = Hash.new 
+           @headers = RequestHeaders.new
+           @options = Array.new
         end
     end
 end

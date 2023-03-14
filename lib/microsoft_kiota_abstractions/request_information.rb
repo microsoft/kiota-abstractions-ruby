@@ -105,7 +105,7 @@ module MicrosoftKiotaAbstractions
     end
 
     def add_headers_from_raw_object(h)
-      h.select{|x,y| @headers.add(x.to_s, y)} unless !h
+      h.get_all.select{|x,y| @headers.add(x.to_s, y)} unless !h
     end
     
     def set_query_string_parameters_from_raw_object(q)

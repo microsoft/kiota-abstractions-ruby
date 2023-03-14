@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+## [0.14.0] - 2023-03-14
+
+### Added
+
+- Added a base request builder and request configuration class to reduce the amount of generated code.
+
+### Changed
+
 - Bumped minimum required ruby version to 3.0.
 
 ## [0.13.0] - 2023-01-10

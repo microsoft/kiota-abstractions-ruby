@@ -1,5 +1,5 @@
 require 'uri'
-require 'addressable/template'
+require 'stduritemplate'
 require_relative 'http_method'
 require_relative 'request_headers'
 
@@ -34,8 +34,7 @@ module MicrosoftKiotaAbstractions
           self.uri = self.path_parameters[@@raw_url_key]
           return @uri
         else
-          template = Addressable::Template.new(@url_template)
-          return URI(template.expand(self.path_parameters.merge(self.query_parameters)).to_s)
+          return URI(StdUriTemplate.expand(@url_template, self.path_parameters.merge(self.query_parameters)))
         end
       end
     end

@@ -11,11 +11,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-## [0.14.1] - 2023-10-05
+## [0.14.1] - 2023-09-06
 
 ### Added
 
 - Added a try_add method for request headers
+
+## [0.14.1] - 2023-09-06
+
+### Changed
+
+- Switched to std URI template
 
 ## [0.14.0] - 2023-03-14
 

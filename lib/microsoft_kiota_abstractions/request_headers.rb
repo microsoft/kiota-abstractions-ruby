@@ -22,6 +22,18 @@ module MicrosoftKiotaAbstractions
               end
             end
         end
+        def try_add(key, value)
+          if key.nil? || key.empty? || value.nil? || value.empty? then
+            raise ArgumentError, 'key and value cannot be nil or empty'
+          end
+          existing_value = @headers[key]
+          if existing_value.nil? || existing_value.empty? then
+            @headers[key] = Array[value.to_s]
+            return true
+          else
+            return false
+          end
+        end
         def get(key)
             if key.nil? || key.empty? then
               raise ArgumentError, 'key cannot be nil or empty'

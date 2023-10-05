@@ -18,6 +18,17 @@ RSpec.describe MicrosoftKiotaAbstractions do
         expect(request_info.headers.get("key").last).to eq("value2")
     end
 
+    it "try to add a request header to the request information" do
+        request_info = MicrosoftKiotaAbstractions::RequestInformation.new
+        result1 = request_info.headers.try_add("key", "value")
+        result2 = request_info.headers.try_add("key", "value2")
+        expect(result1).to eq(true)
+        expect(result2).to eq(false)
+        expect(request_info.headers.get_all.length).to eq(1)
+        expect(request_info.headers.get("key").length).to eq(1)
+        expect(request_info.headers.get("key").first).to eq("value")
+    end
+
     it "removes a request header from the request information" do
         request_info = MicrosoftKiotaAbstractions::RequestInformation.new
         request_info.headers.add("key", "value")

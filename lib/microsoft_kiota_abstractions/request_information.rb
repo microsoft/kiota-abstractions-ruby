@@ -85,13 +85,13 @@ module MicrosoftKiotaAbstractions
 
     def set_stream_content(value = $stdin)
       @content = value
-      @headers.add(@@content_type_header, @@binary_content_type)
+      @headers.try_add(@@content_type_header, @@binary_content_type)
     end
 
     def set_content_from_parsable(request_adapter, content_type, values)
       begin
         writer  = request_adapter.get_serialization_writer_factory().get_serialization_writer(content_type)
-        @headers.add(@@content_type_header, content_type)
+        @headers.try_add(@@content_type_header, content_type)
         if values != nil && values.kind_of?(Array)
           writer.write_collection_of_object_values(nil, values)
         else

@@ -27,7 +27,7 @@ module MicrosoftKiotaAbstractions
             raise ArgumentError, 'key and value cannot be nil or empty'
           end
           existing_value = @headers[key]
-          if existing_value.nil? then
+          if existing_value.nil? || existing_value.empty? then
             @headers[key] = Array[value.to_s]
             return true
           else

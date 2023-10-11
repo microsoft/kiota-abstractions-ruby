@@ -11,7 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-## [0.14.1] - 2023-09-06
+## [0.14.3] - 2023-10-11
+
+### Added
+
+- Added a content type parameter to the stream content method of request information.
+
+## [0.14.2] - 2023-10-06
 
 ### Added
 

@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+## [0.14.4] - 2024-01-06
+
+### Changed
+
+- Fixed a bug that was causing the content not to be set in the request information.
+
 ## [0.14.3] - 2023-10-11
 
 ### Added

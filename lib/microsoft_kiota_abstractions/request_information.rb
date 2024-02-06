@@ -100,7 +100,7 @@ module MicrosoftKiotaAbstractions
         else
           writer.write_object_value(nil, values);
         end
-        this.content = writer.get_serialized_content();
+        @content = writer.get_serialized_content();
       rescue => exception
         raise Exception.new "could not serialize payload"
       end

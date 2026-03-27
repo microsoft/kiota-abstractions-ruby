@@ -35,7 +35,7 @@ module MicrosoftKiotaAbstractions
       if factory
         return factory.get_parse_node(clean_content_type, content)
       end
-      raise Exception.new "Content type #{contentType} does not have a factory to be parsed"
+      raise Exception.new "Content type #{content_type} does not have a factory to be parsed"
     end
         
   end

@@ -16,6 +16,8 @@ RSpec.describe MicrosoftKiotaAbstractions do
   it "creates a anonymous token provider" do
     token_provider = MicrosoftKiotaAbstractions::AnonymousAuthenticationProvider.new()
     expect(token_provider).not_to be nil
+    # Authentication does nothing besides returning an empty Fiber
+    token_provider.authenticate_request(nil).resume
   end
 
   it "returns the raw URI when set via setter" do

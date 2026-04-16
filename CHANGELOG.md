@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- AnonymousAuthenticationProvider.authenticate_request returns an empty Fiber to align with other AuthenticationProvider.
+
 ## [0.14.4] - 2024-01-06
 
 ### Changed

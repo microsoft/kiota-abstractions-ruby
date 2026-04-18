@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'uri'
 require 'microsoft_kiota_abstractions'
-
+require_relative 'access_token_provider_mock'
 
 RSpec.describe MicrosoftKiotaAbstractions do
   it "has a version number" do
@@ -18,6 +18,30 @@ RSpec.describe MicrosoftKiotaAbstractions do
     expect(token_provider).not_to be nil
     # Authentication does nothing besides returning an empty Fiber
     token_provider.authenticate_request(nil).resume
+  end
+
+  it "creates a token authentication provider with existing authorization header" do
+    access_token_provider = AccessTokenProviderMock.new()
+    token_provider = MicrosoftKiotaAbstractions::BaseBearerTokenAuthenticationProvider.new(access_token_provider)
+    expect(token_provider).not_to be nil
+    request_obj = MicrosoftKiotaAbstractions::RequestInformation.new
+    request_obj.headers.add(MicrosoftKiotaAbstractions::BaseBearerTokenAuthenticationProvider::AUTHORIZATION_HEADER_KEY, "SAMPLE")
+    # Authentication does nothing besides returning an empty Fiber
+    token_provider.authenticate_request(request_obj).resume
+    # The request header should be unchanged
+    expect(request_obj.headers.get(MicrosoftKiotaAbstractions::BaseBearerTokenAuthenticationProvider::AUTHORIZATION_HEADER_KEY).at(0)).to eq "SAMPLE"
+  end
+
+  it "creates a token authentication provider without authorization header, which should fail" do
+    access_token_provider = AccessTokenProviderMock.new()
+    token_provider = MicrosoftKiotaAbstractions::BaseBearerTokenAuthenticationProvider.new(access_token_provider)
+    expect(token_provider).not_to be nil
+    request_obj = MicrosoftKiotaAbstractions::RequestInformation.new
+    # We have to set a URI, otherwise the code will fail ("undefined method 'chars' for nil")
+    request_obj.uri = "http://sample.com"
+    token_provider.authenticate_request(request_obj).resume
+    # The request header should now contain the "DUMMY_TOKEN" value:
+    expect(request_obj.headers.get(MicrosoftKiotaAbstractions::BaseBearerTokenAuthenticationProvider::AUTHORIZATION_HEADER_KEY).at(0)).to eq "Bearer DUMMY_TOKEN"
   end
 
   it "returns the raw URI when set via setter" do

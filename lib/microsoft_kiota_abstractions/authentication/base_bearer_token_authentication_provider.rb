@@ -17,10 +17,16 @@ module MicrosoftKiotaAbstractions
     def authenticate_request(request, additional_properties = {})
       raise StandardError, 'Request cannot be null' if request.nil?
 
-      Fiber.new do
-        token = @access_token_provider.get_authorization_token(request.uri, additional_properties).resume
-        request.headers.add(AUTHORIZATION_HEADER_KEY, "Bearer #{token}") unless token.nil? || token.empty?
-      end unless request.headers.get_all.key?(AUTHORIZATION_HEADER_KEY)
+      # If request contains already an authorization header, nothing needs to be done.
+      if request.headers.get_all.key?(AUTHORIZATION_HEADER_KEY)
+        Fiber.new do
+        end
+      else
+        Fiber.new do
+          token = @access_token_provider.get_authorization_token(request.uri, additional_properties).resume
+          request.headers.add(AUTHORIZATION_HEADER_KEY, "Bearer #{token}") unless token.nil? || token.empty?
+        end
+      end
     end
   end
 end

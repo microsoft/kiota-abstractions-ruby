@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.15.0](https://github.com/microsoft/kiota-abstractions-ruby/compare/v0.14.4...v0.15.0) (2026-04-20)
+
+
+### Features
+
+* add workflow_dispatch trigger to all workflows ([e7ec34e](https://github.com/microsoft/kiota-abstractions-ruby/commit/e7ec34e12163689550c84dafe336ead7f37fe3b1))
+* upgrade ruby CI matrix to 3.3, 3.4 and 4.0 ([b8ae278](https://github.com/microsoft/kiota-abstractions-ruby/commit/b8ae2789b67ec2f4a8d92af233dea81bdf46b803))
+* upgrade ruby CI matrix to 3.3, 3.4 and 4.0 ([2ab5a2e](https://github.com/microsoft/kiota-abstractions-ruby/commit/2ab5a2e454ac0da738a6e70daf85834a94e281ec))
+
+
+### Bug Fixes
+
+* anonymous authentication provider did not return a fiber resulting in a failure ([29b9d31](https://github.com/microsoft/kiota-abstractions-ruby/commit/29b9d31003d787e453c39ec9c039bf575f599463))
+
 ## [Unreleased]
 
 ### Added

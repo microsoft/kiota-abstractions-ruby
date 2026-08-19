@@ -22,6 +22,8 @@ require_relative "microsoft_kiota_abstractions/serialization/parse_node_factory_
 require_relative "microsoft_kiota_abstractions/serialization/serialization_writer"
 require_relative "microsoft_kiota_abstractions/serialization/serialization_writer_factory"
 require_relative "microsoft_kiota_abstractions/serialization/serialization_writer_factory_registry"
+require_relative "microsoft_kiota_abstractions/serialization/composed_type_wrapper"
+require_relative "microsoft_kiota_abstractions/serialization/parse_node_helper"
 
 module MicrosoftKiotaAbstractions
 end

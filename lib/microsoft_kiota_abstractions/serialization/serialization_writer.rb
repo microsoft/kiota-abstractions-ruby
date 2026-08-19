@@ -64,6 +64,10 @@ module MicrosoftKiotaAbstractions
     def write_any_value(key, value)
       raise NotImplementedError.new
     end
-    
+
+    def write_object_value(key, value, *additional_values_to_merge)
+      raise NotImplementedError.new
+    end
+
   end
 end

@@ -1,0 +1,10 @@
+# frozen_string_literal: true
+
+require_relative "microsoft_kiota_serialization_json/json_parse_node"
+require_relative "microsoft_kiota_serialization_json/json_parse_node_factory"
+require_relative "microsoft_kiota_serialization_json/json_serialization_writer"
+require_relative "microsoft_kiota_serialization_json/json_serialization_writer_factory"
+require_relative "microsoft_kiota_serialization_json/version"
+
+module MicrosoftKiotaSerializationJson
+end

@@ -12,11 +12,11 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://microsoft.github.io/kiota/'
   spec.license       = 'MIT'
   spec.metadata      = {
-    'bug_tracker_uri' => 'https://github.com/microsoft/kiota-abstractions-ruby/issues',
-    'changelog_uri'   => 'https://github.com/microsoft/kiota-abstractions-ruby/blob/main/CHANGELOG.md',
+    'bug_tracker_uri' => 'https://github.com/microsoft/kiota-ruby/issues',
+    'changelog_uri'   => 'https://github.com/microsoft/kiota-ruby/blob/main/components/abstractions/CHANGELOG.md',
     'homepage_uri'    => spec.homepage,
-    'source_code_uri' => 'https://github.com/microsoft/kiota-abstractions-ruby',
-    'github_repo'     => 'ssh://github.com/microsoft/kiota-abstractions-ruby'
+    'source_code_uri' => 'https://github.com/microsoft/kiota-ruby/tree/main/components/abstractions',
+    'github_repo'     => 'ssh://github.com/microsoft/kiota-ruby'
   }
   spec.required_ruby_version = '>= 3.3.0'
 

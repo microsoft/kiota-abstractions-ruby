@@ -1,4 +1,4 @@
-# Copilot Instructions for Kiota Abstractions Ruby
+# Copilot Instructions for Kiota Ruby
 
 ## Commit Messages
 

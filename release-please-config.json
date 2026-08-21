@@ -1,15 +1,48 @@
 {
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
   "packages": {
-    ".": {
+    "components/abstractions": {
       "release-type": "ruby",
       "package-name": "microsoft_kiota_abstractions",
       "changelog-path": "CHANGELOG.md",
-      "include-v-in-tag": true,
-      "include-component-in-tag": false,
-      "bump-minor-pre-major": true,
-      "version-file": "lib/microsoft_kiota_abstractions/version.rb"
+      "version-file": "lib/microsoft_kiota_abstractions/version.rb",
+      "component": "microsoft_kiota_abstractions"
+    },
+    "components/serialization/json": {
+      "release-type": "ruby",
+      "package-name": "microsoft_kiota_serialization_json",
+      "changelog-path": "CHANGELOG.md",
+      "version-file": "lib/microsoft_kiota_serialization_json/version.rb",
+      "component": "microsoft_kiota_serialization_json"
+    },
+    "components/http": {
+      "release-type": "ruby",
+      "package-name": "microsoft_kiota_faraday",
+      "changelog-path": "CHANGELOG.md",
+      "version-file": "lib/microsoft_kiota_faraday/version.rb",
+      "component": "microsoft_kiota_faraday"
+    },
+    "components/authentication/oauth": {
+      "release-type": "ruby",
+      "package-name": "microsoft_kiota_authentication_oauth",
+      "changelog-path": "CHANGELOG.md",
+      "version-file": "lib/microsoft_kiota_authentication_oauth/version.rb",
+      "component": "microsoft_kiota_authentication_oauth"
     }
   },
-  "bootstrap-sha": "aada60935d93a41dd422c94db2e129f24eb30ac9"
+  "plugins": [
+    {
+      "type": "linked-versions",
+      "groupName": "kiota-ruby",
+      "components": [
+        "microsoft_kiota_abstractions",
+        "microsoft_kiota_serialization_json",
+        "microsoft_kiota_faraday",
+        "microsoft_kiota_authentication_oauth"
+      ]
+    }
+  ],
+  "include-v-in-tag": true,
+  "include-component-in-tag": false,
+  "bump-minor-pre-major": true
 }

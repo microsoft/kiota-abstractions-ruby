@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-# Specify your gem's dependencies in microsoft_kiota_abstractions.gemspec
-gemspec
+gem "microsoft_kiota_abstractions", path: "components/abstractions"
+gem "microsoft_kiota_serialization_json", path: "components/serialization/json"
+gem "microsoft_kiota_faraday", path: "components/http"
+gem "microsoft_kiota_authentication_oauth", path: "components/authentication/oauth"
+
+gem "rake", "~> 13.0"
+gem "rspec", "~> 3.0"

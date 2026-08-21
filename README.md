@@ -1,32 +1,46 @@
-# Kiota Abstractions Library for Ruby
+# Kiota SDK for Ruby
 
-![Ruby](https://github.com/microsoft/kiota-abstractions-ruby/actions/workflows/ruby.yml/badge.svg)
+![Ruby](https://github.com/microsoft/kiota-ruby/actions/workflows/ruby.yml/badge.svg)
 
-The Kiota abstractions Library for go is the go library defining the basic constructs Kiota projects need once an SDK has been generated from an OpenAPI definition.
+This repository contains the Ruby libraries for [Kiota](https://github.com/microsoft/kiota)-generated API clients.
 
-A [Kiota](https://github.com/microsoft/kiota) generated project will need a reference to the abstraction package to build and run.
+## Components
 
-Read more about Kiota [here](https://github.com/microsoft/kiota/blob/main/README.md).
+| Gem | Description | RubyGems |
+|-----|-------------|----------|
+| [microsoft_kiota_abstractions](components/abstractions/) | Core abstractions for Kiota-generated clients | [![Gem Version](https://badge.fury.io/rb/microsoft_kiota_abstractions.svg)](https://rubygems.org/gems/microsoft_kiota_abstractions) |
+| [microsoft_kiota_serialization_json](components/serialization/json/) | JSON serialization implementation | [![Gem Version](https://badge.fury.io/rb/microsoft_kiota_serialization_json.svg)](https://rubygems.org/gems/microsoft_kiota_serialization_json) |
+| [microsoft_kiota_faraday](components/http/) | HTTP client implementation with Faraday | [![Gem Version](https://badge.fury.io/rb/microsoft_kiota_faraday.svg)](https://rubygems.org/gems/microsoft_kiota_faraday) |
+| [microsoft_kiota_authentication_oauth](components/authentication/oauth/) | OAuth authentication provider | [![Gem Version](https://badge.fury.io/rb/microsoft_kiota_authentication_oauth.svg)](https://rubygems.org/gems/microsoft_kiota_authentication_oauth) |
 
-## Using the abstractions library
+## Installation
 
-Add this line to your application's Gemfile:
+Add the gems you need to your application's Gemfile:
 
 ```ruby
-gem "microsoft_kiota_abstractions", "0.12.0"
+gem "microsoft_kiota_abstractions"
+gem "microsoft_kiota_serialization_json"
+gem "microsoft_kiota_faraday"
+gem "microsoft_kiota_authentication_oauth"
 ```
 
-And then execute:
+## Development
 
 ```shell
+git clone https://github.com/microsoft/kiota-ruby.git
+cd kiota-ruby
 bundle install
+rake spec
 ```
 
-Or install it yourself as:
+To run tests for a specific component:
 
- ```shell
-gem install microsoft_kiota_abstractions --version "0.12.0"
- ```
+```shell
+rake abstractions:spec
+rake serialization-json:spec
+rake http:spec
+rake authentication-oauth:spec
+```
 
 ## Contributing
 
@@ -44,8 +58,8 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 ## Trademarks
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
-trademarks or logos is subject to and must follow 
+This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft
+trademarks or logos is subject to and must follow
 [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
 Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
 Any use of third-party trademarks or logos are subject to those third-party's policies.

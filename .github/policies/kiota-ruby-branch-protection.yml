@@ -1,8 +1,8 @@
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT License.
 
-name: kiota-abstractions-ruby-branch-protection
-description: Branch protection policy for the kiota-abstractions-ruby repository
+name: kiota-ruby-branch-protection
+description: Branch protection policy for the kiota-ruby repository
 resource: repository
 configuration:
   branchProtectionRules:

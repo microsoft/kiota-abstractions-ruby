@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 module MicrosoftKiotaAbstractions
   module Parsable
     def get_field_deserializers
-      raise NotImplementedError.new
+      raise NotImplementedError
     end
 
-    def serialize(writer)
-      raise NotImplementedError.new
+    def serialize(_writer)
+      raise NotImplementedError
     end
   end
 end

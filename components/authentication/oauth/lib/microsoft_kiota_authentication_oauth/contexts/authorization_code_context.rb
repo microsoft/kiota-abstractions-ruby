@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'oauth2'
-require_relative './oauth_context'
+require_relative 'oauth_context'
 
 module MicrosoftKiotaAuthenticationOAuth
   # Token request context class for the authorization code grant type.
@@ -11,10 +11,10 @@ module MicrosoftKiotaAuthenticationOAuth
     attr_writer :scopes
 
     # This is the initializer for AuthorizationCodeContext, the token request context when
-    # using the authorization code grant flow. 
+    # using the authorization code grant flow.
     # :params
-    #   tenant_id: a string containing the tenant id 
-    #   client_id: a string containing the client id 
+    #   tenant_id: a string containing the tenant id
+    #   client_id: a string containing the client id
     #   client_secret: a string containing the client secret
     #   redirect_uri: a string containing redirect_uri
     #   auth_code: a string containting the auth code; default is nil, can be updated post-initialization
@@ -49,11 +49,11 @@ module MicrosoftKiotaAuthenticationOAuth
     #                      default is empty hash
     def generate_authorize_url(scopes, additional_params = {})
       @additional_params = additional_params
-      
-      self.initialize_scopes(scopes)
-      self.initialize_oauth_provider
 
-      parameters = { scope: @scopes, redirect_uri: @redirect_uri, access_type: 'offline', prompt: 'consent'}
+      initialize_scopes(scopes)
+      initialize_oauth_provider
+
+      parameters = { scope: @scopes, redirect_uri: @redirect_uri, access_type: 'offline', prompt: 'consent' }
       parameters = parameters.merge(additional_params)
       @oauth_provider.auth_code.authorize_url(parameters)
     end
@@ -71,10 +71,10 @@ module MicrosoftKiotaAuthenticationOAuth
 
     def initialize_scopes(scopes)
       scope_str = ''
-      scopes.each { |scope| scope_str += scope + ' '}
+      scopes.each { |scope| scope_str += "#{scope} " }
       raise StandardError, 'scopes cannot be empty/nil.' if scope_str.empty?
-      
-      scope_str = 'offline_access ' + scope_str
+
+      scope_str = "offline_access #{scope_str}"
 
       @scopes = scope_str
     end

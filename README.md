@@ -30,7 +30,8 @@ gem "microsoft_kiota_authentication_oauth"
 git clone https://github.com/microsoft/kiota-ruby.git
 cd kiota-ruby
 bundle install
-rake spec
+rake spec        # run all tests
+rake rubocop     # run linter
 ```
 
 To run tests for a specific component:
@@ -40,6 +41,12 @@ rake abstractions:spec
 rake serialization-json:spec
 rake http:spec
 rake authentication-oauth:spec
+```
+
+To auto-fix formatting issues:
+
+```shell
+bundle exec rubocop -a
 ```
 
 ## Contributing

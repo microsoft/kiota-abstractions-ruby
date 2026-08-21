@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module MicrosoftKiotaAbstractions
   module HttpMethod
-
     HTTP_METHOD = {
       GET: :GET,
       POST: :POST,
@@ -11,7 +12,6 @@ module MicrosoftKiotaAbstractions
       PUT: :PUT,
       TRACE: :TRACE,
       HEAD: :HEAD
-    }
-    
-    end 
+    }.freeze
   end
+end

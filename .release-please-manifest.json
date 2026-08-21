@@ -1,6 +1,3 @@
 {
-  "components/abstractions": "0.17.0",
-  "components/serialization/json": "0.17.0",
-  "components/http": "0.17.0",
-  "components/authentication/oauth": "0.17.0"
+  ".": "0.17.0"
 }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'serialization_writer_factory'
 
 module MicrosoftKiotaAbstractions
@@ -6,7 +8,8 @@ module MicrosoftKiotaAbstractions
 
     class << self
       attr_accessor :default_instance
-      def default_instance; @default_instance ||= SerializationWriterFactoryRegistry.new; end
+
+      def default_instance = @default_instance ||= SerializationWriterFactoryRegistry.new
     end
 
     def default_instance
@@ -14,27 +17,21 @@ module MicrosoftKiotaAbstractions
     end
 
     def content_type_associated_factories
-      @content_type_associated_factories ||= Hash.new
+      @content_type_associated_factories ||= {}
     end
 
     def get_serialization_writer(content_type)
-      if !content_type
-        raise Exception.new 'content type cannot be undefined or empty'
-      end
+      raise StandardError, 'content type cannot be undefined or empty' unless content_type
+
       vendor_specific_content_type = content_type.split(';').first
       factory = @content_type_associated_factories[vendor_specific_content_type]
-      if factory
-        return factory.get_serialization_writer(vendor_specific_content_type)
-      end
+      return factory.get_serialization_writer(vendor_specific_content_type) if factory
 
-      clean_content_type = vendor_specific_content_type.gsub(/[^\/]+\+/i, '')
+      clean_content_type = vendor_specific_content_type.gsub(%r{[^/]+\+}i, '')
       factory = @content_type_associated_factories[clean_content_type]
-      if factory
-        return factory.get_serialization_writer(clean_content_type)
-      end
+      return factory.get_serialization_writer(clean_content_type) if factory
 
-      raise Exception.new "Content type #{contentType} does not have a factory to be serialized"
+      raise StandardError, "Content type #{contentType} does not have a factory to be serialized"
     end
-    
   end
 end

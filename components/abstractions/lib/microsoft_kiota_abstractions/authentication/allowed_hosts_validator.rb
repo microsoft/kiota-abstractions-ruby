@@ -24,11 +24,10 @@ module MicrosoftKiotaAbstractions
 
       parsed_url = URI(url)
       return false if parsed_url.host.nil?
-      
+
       return false unless parsed_url.is_a?(URI::HTTPS)
 
       @allowed_hosts.key? parsed_url.host.downcase
-
     rescue URI::InvalidURIError
       false
     end

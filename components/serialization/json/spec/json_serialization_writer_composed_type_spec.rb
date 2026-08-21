@@ -11,8 +11,8 @@ module TestModels
 
     def get_field_deserializers
       {
-        'name' => lambda { |n| @name = n.get_string_value },
-        'age' => lambda { |n| @age = n.get_number_value }
+        'name' => ->(n) { @name = n.get_string_value },
+        'age' => ->(n) { @age = n.get_number_value }
       }
     end
 
@@ -32,7 +32,7 @@ module TestModels
     attr_accessor :email
 
     def get_field_deserializers
-      { 'email' => lambda { |n| @email = n.get_string_value } }
+      { 'email' => ->(n) { @email = n.get_string_value } }
     end
 
     def serialize(writer)
@@ -53,6 +53,7 @@ module TestModels
     def get_field_deserializers
       return @simple.get_field_deserializers if @simple
       return @another.get_field_deserializers if @another
+
       {}
     end
 
@@ -227,9 +228,9 @@ RSpec.describe MicrosoftKiotaSerializationJson::JsonSerializationWriter do
 
       writer.write_collection_of_object_values('people', [obj1, obj2])
       expect(writer.writer['people']).to eq([
-        { 'name' => 'Alice', 'age' => 30 },
-        { 'name' => 'Bob', 'age' => 25 }
-      ])
+                                              { 'name' => 'Alice', 'age' => 30 },
+                                              { 'name' => 'Bob', 'age' => 25 }
+                                            ])
     end
 
     it 'serializes into self when key is nil' do

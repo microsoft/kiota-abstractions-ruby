@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require 'time'
 require 'date'
 require 'json'
 require 'uuidtools'
 require 'microsoft_kiota_abstractions'
 
-
 module MicrosoftKiotaSerializationJson
   class JsonParseNode
     include MicrosoftKiotaAbstractions::ParseNode
+
     def initialize(node)
       @current_node = node
     end
@@ -36,15 +38,15 @@ module MicrosoftKiotaSerializationJson
       Date.parse(@current_node)
     end
 
-    def get_time_value()
+    def get_time_value
       Time.parse(@current_node)
     end
 
-    def get_date_time_value()
+    def get_date_time_value
       DateTime.parse(@current_node)
     end
 
-    def get_duration_value()
+    def get_duration_value
       MicrosoftKiotaAbstractions::ISODuration.new(@current_node)
     end
 
@@ -60,7 +62,7 @@ module MicrosoftKiotaSerializationJson
           current_parse_node.get_float_value
         when Integer
           current_parse_node.get_float_value
-        when "Boolean"
+        when 'Boolean'
           current_parse_node.get_float_value
         when DateTime
           current_parse_node.get_date_time_value
@@ -82,6 +84,7 @@ module MicrosoftKiotaSerializationJson
 
     def get_collection_of_object_values(factory)
       raise StandardError, 'Factory cannot be null' if factory.nil?
+
       @current_node.map do |object|
         next if object.nil?
 
@@ -92,6 +95,7 @@ module MicrosoftKiotaSerializationJson
 
     def get_object_value(factory)
       raise StandardError, 'Factory cannot be null' if factory.nil?
+
       item = factory.call(self)
       assign_field_values(item)
       item
@@ -110,7 +114,7 @@ module MicrosoftKiotaSerializationJson
         elsif item.additional_data
           item.additional_data[k] = v
         else
-          item.additional_data = Hash.new(k => v)
+          item.additional_data = Hash.new({ k => v })
         end
       end
     end
@@ -127,8 +131,9 @@ module MicrosoftKiotaSerializationJson
 
     def get_child_node(name)
       raise StandardError, 'Name cannot be null' if name.nil? || name.empty?
+
       raw_value = @current_node[name]
-      return JsonParseNode.new(raw_value) if raw_value
+      JsonParseNode.new(raw_value) if raw_value
     end
   end
 end

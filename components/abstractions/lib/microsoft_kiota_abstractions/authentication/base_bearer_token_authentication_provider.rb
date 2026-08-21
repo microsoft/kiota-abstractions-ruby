@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
-require_relative './authentication_provider'
-require_relative './access_token_provider'
+require_relative 'authentication_provider'
+require_relative 'access_token_provider'
 
 module MicrosoftKiotaAbstractions
   # Provides a base class for implementing AuthenticationProvider for Bearer token scheme
   class BaseBearerTokenAuthenticationProvider
     include MicrosoftKiotaAbstractions::AuthenticationProvider
+
     def initialize(access_token_provider)
       raise StandardError, 'access_token_provider parameter cannot be nil' if access_token_provider.nil?
 
       @access_token_provider = access_token_provider
-    end 
+    end
 
     AUTHORIZATION_HEADER_KEY = 'Authorization'
     def authenticate_request(request, additional_properties = {})

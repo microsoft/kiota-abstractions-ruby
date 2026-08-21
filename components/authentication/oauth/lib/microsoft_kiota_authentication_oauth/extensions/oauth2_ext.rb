@@ -5,7 +5,7 @@ require 'oauth2'
 # Extension of Oauth2 Library to Include On Behalf Of Grant Type
 module OAuth2
   module Strategy
-    class OnBehalfOf < Base 
+    class OnBehalfOf < Base
       def get_token(params, response_opts = {})
         @client.get_token(params, response_opts)
       end

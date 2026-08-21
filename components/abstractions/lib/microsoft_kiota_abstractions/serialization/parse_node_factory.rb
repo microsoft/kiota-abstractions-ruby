@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module MicrosoftKiotaAbstractions
   module ParseNodeFactory
-    def ParseNodeFactory.get_parse_node(content_type, content)
-      raise NotImplementedError.new
+    def self.get_parse_node(_content_type, _content)
+      raise NotImplementedError
     end
   end
 end

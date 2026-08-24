@@ -27,7 +27,7 @@ RSpec.describe MicrosoftKiotaAuthenticationOAuth do
   end
 
   it '(auth code context) throws when tenant_id/client_secret is nil/empty' do
-    expect  do
+    expect do
       MicrosoftKiotaAuthenticationOAuth::AuthorizationCodeContext.new(nil, nil, nil, nil)
     end.to raise_error(StandardError)
     expect do

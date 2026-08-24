@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
   spec.add_dependency 'json', '>= 2.6.3', '< 2.22.0'
-  spec.add_dependency 'microsoft_kiota_abstractions', '>= 0.17', '< 0.18'
+  spec.add_dependency 'microsoft_kiota_abstractions', MicrosoftKiotaSerializationJson::VERSION
   spec.add_dependency 'uuidtools', '>= 2.2', '< 3.1'
   spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec', '~> 3.0'

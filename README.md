@@ -18,10 +18,10 @@ This repository contains the Ruby libraries for [Kiota](https://github.com/micro
 Add the gems you need to your application's Gemfile:
 
 ```ruby
-gem "microsoft_kiota_abstractions"
-gem "microsoft_kiota_serialization_json"
-gem "microsoft_kiota_faraday"
-gem "microsoft_kiota_authentication_oauth"
+gem 'microsoft_kiota_abstractions'
+gem 'microsoft_kiota_serialization_json'
+gem 'microsoft_kiota_faraday'
+gem 'microsoft_kiota_authentication_oauth'
 ```
 
 ## Development

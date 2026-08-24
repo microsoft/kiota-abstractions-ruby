@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  deploy_prod:
+  publish-abstractions:
     environment:
       name: production_feeds
     runs-on: ubuntu-latest
@@ -23,8 +23,50 @@ jobs:
           bundler-cache: true
           bundler: 'latest'
           cache-version: 1
-      - run: bundle exec rake
-      - name: Publish to RubyGems
+          working-directory: components/abstractions
+      - name: Run tests
+        working-directory: components/abstractions
+        run: bundle exec rake
+      - name: Publish microsoft_kiota_abstractions to RubyGems
+        working-directory: components/abstractions
+        run: |
+          mkdir -p $HOME/.gem
+          touch $HOME/.gem/credentials
+          chmod 0600 $HOME/.gem/credentials
+          printf -- "---\n:rubygems_api_key: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
+          gem build *.gemspec
+          gem push *.gem
+        env:
+          GEM_HOST_API_KEY: "${{secrets.RUBYGEMS_AUTH_TOKEN}}"
+
+  publish-downstream:
+    needs: publish-abstractions
+    environment:
+      name: production_feeds
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        component:
+          - { name: serialization-json, dir: components/serialization/json }
+          - { name: http, dir: components/http }
+          - { name: authentication-oauth, dir: components/authentication/oauth }
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.ref }}
+      - uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+        with:
+          ruby-version: '3.4'
+          bundler-cache: true
+          bundler: 'latest'
+          cache-version: 1
+          working-directory: ${{ matrix.component.dir }}
+      - name: Run tests
+        working-directory: ${{ matrix.component.dir }}
+        run: bundle exec rake
+      - name: Publish ${{ matrix.component.name }} to RubyGems
+        working-directory: ${{ matrix.component.dir }}
         run: |
           mkdir -p $HOME/.gem
           touch $HOME/.gem/credentials

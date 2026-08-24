@@ -1,15 +1,18 @@
 {
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "simple",
+  "include-v-in-tag": true,
+  "include-component-in-tag": false,
+  "bump-minor-pre-major": true,
   "packages": {
     ".": {
-      "release-type": "ruby",
-      "package-name": "microsoft_kiota_abstractions",
       "changelog-path": "CHANGELOG.md",
-      "include-v-in-tag": true,
-      "include-component-in-tag": false,
-      "bump-minor-pre-major": true,
-      "version-file": "lib/microsoft_kiota_abstractions/version.rb"
+      "extra-files": [
+        "components/abstractions/lib/microsoft_kiota_abstractions/version.rb",
+        "components/serialization/json/lib/microsoft_kiota_serialization_json/version.rb",
+        "components/http/lib/microsoft_kiota_faraday/version.rb",
+        "components/authentication/oauth/lib/microsoft_kiota_authentication_oauth/version.rb"
+      ]
     }
-  },
-  "bootstrap-sha": "aada60935d93a41dd422c94db2e129f24eb30ac9"
+  }
 }

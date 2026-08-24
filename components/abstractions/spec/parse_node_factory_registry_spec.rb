@@ -8,6 +8,7 @@ RSpec.describe MicrosoftKiotaAbstractions do
   values << 'application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;charset=utf-8'
   values << 'application/vnd.github.mercy-preview+json'
   values << 'application/vnd.github.mercy-preview+json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;charset=utf-8'
+  values << "application/#{Array.new(1000, 'vendor').join('.')}+json"
   serialized_value = '[1]'
   MicrosoftKiotaAbstractions::ParseNodeFactoryRegistry.default_instance.content_type_associated_factories['application/json'] =
     ParseNodeFactoryMock.new

@@ -28,11 +28,23 @@ module MicrosoftKiotaAbstractions
       factory = @content_type_associated_factories[vendor_specific_content_type]
       return factory.get_parse_node(vendor_specific_content_type, content) if factory
 
-      clean_content_type = vendor_specific_content_type.gsub(%r{[^/]+\+}i, '')
+      clean_content_type = get_clean_content_type(vendor_specific_content_type)
       factory = @content_type_associated_factories[clean_content_type]
       return factory.get_parse_node(clean_content_type, content) if factory
 
-      raise StandardError, "Content type #{contentType} does not have a factory to be parsed"
+      raise StandardError, "Content type #{content_type} does not have a factory to be parsed"
+    end
+
+    private
+
+    def get_clean_content_type(content_type)
+      plus_index = content_type.rindex('+')
+      return content_type unless plus_index
+
+      slash_index = content_type.rindex('/', plus_index)
+      return content_type unless slash_index && slash_index < plus_index
+
+      "#{content_type[0..slash_index]}#{content_type[(plus_index + 1)..]}"
     end
   end
 end

@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = 'graphsdkpub+ruby@microsoft.com'
   spec.description   = 'Microsoft Kiota Abstractions - Ruby abstractions for building library agnostic http client'
   spec.summary       = 'The Kiota abstractions are language specific libraries defining the basic constructs Kiota projects need once an SDK has been generated from an OpenAPI definition.'
-  spec.homepage      = 'https://microsoft.github.io/kiota/'
+  spec.homepage      = 'https://learn.microsoft.com/openapi/kiota/'
   spec.license       = 'MIT'
   spec.metadata      = {
     'bug_tracker_uri' => 'https://github.com/microsoft/kiota-ruby/issues',

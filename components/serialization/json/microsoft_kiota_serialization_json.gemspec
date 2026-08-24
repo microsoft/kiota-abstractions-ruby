@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = 'graphsdkpub+ruby@microsoft.com'
   spec.description   = 'Implementation of Kiota Serialization interfaces for JSON'
   spec.summary       = 'Microsoft Kiota Serialization - Ruby serialization for building library agnostic http client'
-  spec.homepage      = 'https://microsoft.github.io/kiota/'
+  spec.homepage      = 'https://learn.microsoft.com/openapi/kiota/'
   spec.license       = 'MIT'
   spec.metadata      = {
     'bug_tracker_uri' => 'https://github.com/microsoft/kiota-ruby/issues',

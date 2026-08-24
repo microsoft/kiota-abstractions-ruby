@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = 'graphsdkpub+ruby@microsoft.com'
   spec.description   = 'Kiota HttpCore implementation with Faraday'
   spec.summary       = 'Microsoft Kiota Faraday - Kiota Ruby http request adapter for running requests'
-  spec.homepage      = 'https://microsoft.github.io/kiota/'
+  spec.homepage      = 'https://learn.microsoft.com/openapi/kiota/'
   spec.license       = 'MIT'
   spec.metadata      = {
     'bug_tracker_uri' => 'https://github.com/microsoft/kiota-ruby/issues',

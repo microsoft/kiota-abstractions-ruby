@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = 'graphsdkpub+ruby@microsoft.com'
   spec.description   = 'Kiota Authentication implementation with oauth2'
   spec.summary       = 'Microsoft Kiota Authentication OAuth - Kiota Ruby Authentication OAuth library'
-  spec.homepage      = 'https://microsoft.github.io/kiota/'
+  spec.homepage      = 'https://learn.microsoft.com/openapi/kiota/'
   spec.license       = 'MIT'
   spec.metadata      = {
     'bug_tracker_uri' => 'https://github.com/microsoft/kiota-ruby/issues',

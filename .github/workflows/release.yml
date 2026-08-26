@@ -10,6 +10,9 @@ permissions:
 
 jobs:
   publish-abstractions:
+    permissions:
+      contents: read
+      id-token: write
     environment:
       name: production_feeds
     runs-on: ubuntu-latest
@@ -27,20 +30,19 @@ jobs:
       - name: Run tests
         working-directory: components/abstractions
         run: bundle exec rake
+      - name: Configure RubyGems trusted publishing credentials
+        uses: rubygems/configure-rubygems-credentials@dc5a8d8553e6ee01fc26761a49e99e733d17954a # v2.1.0
       - name: Publish microsoft_kiota_abstractions to RubyGems
         working-directory: components/abstractions
         run: |
-          mkdir -p $HOME/.gem
-          touch $HOME/.gem/credentials
-          chmod 0600 $HOME/.gem/credentials
-          printf -- "---\n:rubygems_api_key: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
           gem build *.gemspec
           gem push *.gem
-        env:
-          GEM_HOST_API_KEY: "${{secrets.RUBYGEMS_AUTH_TOKEN}}"
 
   publish-downstream:
     needs: publish-abstractions
+    permissions:
+      contents: read
+      id-token: write
     environment:
       name: production_feeds
     runs-on: ubuntu-latest
@@ -65,14 +67,10 @@ jobs:
       - name: Run tests
         working-directory: ${{ matrix.component.dir }}
         run: bundle exec rake
+      - name: Configure RubyGems trusted publishing credentials
+        uses: rubygems/configure-rubygems-credentials@dc5a8d8553e6ee01fc26761a49e99e733d17954a # v2.1.0
       - name: Publish ${{ matrix.component.name }} to RubyGems
         working-directory: ${{ matrix.component.dir }}
         run: |
-          mkdir -p $HOME/.gem
-          touch $HOME/.gem/credentials
-          chmod 0600 $HOME/.gem/credentials
-          printf -- "---\n:rubygems_api_key: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
           gem build *.gemspec
           gem push *.gem
-        env:
-          GEM_HOST_API_KEY: "${{secrets.RUBYGEMS_AUTH_TOKEN}}"

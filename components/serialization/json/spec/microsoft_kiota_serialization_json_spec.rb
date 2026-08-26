@@ -13,7 +13,9 @@ RSpec.describe MicrosoftKiotaSerializationJson do
   it 'can build jsonParseNode' do
     json_parse_node = MicrosoftKiotaSerializationJson::JsonParseNode.new(JSON.parse('{"value": [{"hasAttachments": false}] }'))
     expect(json_parse_node).not_to be nil
-    expect(json_parse_node.get_string_value.gsub(/\s+/, '')).to eq('{"value"=>[{"hasAttachments"=>false}]}')
+    # an object node is not a string, so the string reader declines it rather than dumping its inspect form
+    expect(json_parse_node.get_string_value).to be_nil
+    expect(json_parse_node.get_child_node('value')).not_to be nil
   end
 
   it 'can deserialize payload' do

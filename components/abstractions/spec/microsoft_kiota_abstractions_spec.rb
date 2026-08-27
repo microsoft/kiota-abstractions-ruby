@@ -153,6 +153,31 @@ RSpec.describe MicrosoftKiotaAbstractions do
     expect(url6).to eq(false)
   end
 
+  it 'returns true for subdomain matching allowed suffix' do
+    ahv = MicrosoftKiotaAbstractions::AllowedHostsValidator.new(['.fabric.microsoft.com'])
+
+    expect(ahv.url_host_valid?('https://abc.123.graphql.fabric.microsoft.com/path')).to eq(true)
+  end
+
+  it 'returns false for bare domain when allowed as suffix' do
+    ahv = MicrosoftKiotaAbstractions::AllowedHostsValidator.new(['.fabric.microsoft.com'])
+
+    expect(ahv.url_host_valid?('https://fabric.microsoft.com/path')).to eq(false)
+  end
+
+  it 'matches suffix hosts case-insensitively' do
+    ahv = MicrosoftKiotaAbstractions::AllowedHostsValidator.new(['.Fabric.Microsoft.COM'])
+
+    expect(ahv.url_host_valid?('https://ABC.z2c.graphql.fabric.microsoft.com/path')).to eq(true)
+  end
+
+  it 'allows suffix-based hosts after update' do
+    ahv = MicrosoftKiotaAbstractions::AllowedHostsValidator.new(['example.com'])
+    ahv.allowed_hosts = ['.fabric.microsoft.com']
+
+    expect(ahv.url_host_valid?('https://abc.123.graphql.fabric.microsoft.com/path')).to eq(true)
+  end
+
   it 'tests the default instance for ParseNodeFactoryRegistry is set' do
     expect(MicrosoftKiotaAbstractions::ParseNodeFactoryRegistry.default_instance).to_not be_nil
   end

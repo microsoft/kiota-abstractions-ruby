@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.19.0](https://github.com/microsoft/kiota-ruby/compare/v0.18.0...v0.19.0) (2026-08-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* read JSON scalars by type instead of coercing
+
+### Bug Fixes
+
+* read JSON scalars by type instead of coercing ([e1ee161](https://github.com/microsoft/kiota-ruby/commit/e1ee16134c9f66f429303a9b0d23fae08f956e36))
+* support primitive members in composed types ([2a64b1d](https://github.com/microsoft/kiota-ruby/commit/2a64b1dc07fc15c5433fd6189a08eec7981711fe))
+
 ## [0.18.0](https://github.com/microsoft/kiota-ruby/compare/v0.17.0...v0.18.0) (2026-08-24)
 
 

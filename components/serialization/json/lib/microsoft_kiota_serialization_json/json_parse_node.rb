@@ -14,20 +14,25 @@ module MicrosoftKiotaSerializationJson
       @current_node = node
     end
 
+    # The scalar readers answer only for the type they are named after and return nil otherwise,
+    # matching the dotnet and Python runtimes. Coercing instead would make every reader answer for
+    # every payload, which leaves a composed type unable to tell which member it holds.
     def get_string_value
-      @current_node.to_s
+      @current_node.is_a?(String) ? @current_node : nil
     end
 
     def get_boolean_value
-      @current_node
+      [true, false].include?(@current_node) ? @current_node : nil
     end
 
     def get_number_value
-      @current_node.to_i
+      @current_node.is_a?(Integer) ? @current_node : nil
     end
 
+    # Widened to Numeric because JSON writes a whole number without a fraction, so a float field can
+    # legitimately arrive as an Integer.
     def get_float_value
-      @current_node.to_f
+      @current_node.is_a?(Numeric) ? @current_node.to_f : nil
     end
 
     def get_guid_value
@@ -50,35 +55,34 @@ module MicrosoftKiotaSerializationJson
       MicrosoftKiotaAbstractions::ISODuration.new(@current_node)
     end
 
+    # The generator passes the type as a class, except for booleans which it passes as a plain
+    # string. A `case` cannot dispatch on that: `when String` asks whether the type is an instance
+    # of String, and a class is an instance of Class, so every branch fell through to the string
+    # reader. A hash keys on the class object itself.
+    PRIMITIVE_READERS = {
+      String => :get_string_value,
+      Float => :get_float_value,
+      Integer => :get_number_value,
+      Date => :get_date_value,
+      DateTime => :get_date_time_value,
+      Time => :get_time_value,
+      MicrosoftKiotaAbstractions::ISODuration => :get_duration_value,
+      UUIDTools::UUID => :get_guid_value,
+      'boolean' => :get_boolean_value,
+      'Boolean' => :get_boolean_value
+    }.freeze
+
     def get_collection_of_primitive_values(type)
+      reader = PRIMITIVE_READERS[type]
       @current_node.map do |object|
         next if object.nil?
+        # an untyped collection is generated as Object, which has no reader of its own; the parsed
+        # JSON scalar is already the value, so it passes through rather than being stringified
+        next object if reader.nil?
 
-        current_parse_node = JsonParseNode.new(object)
-        case type
-        when String
-          current_parse_node.get_string_value
-        when Float
-          current_parse_node.get_float_value
-        when Integer
-          current_parse_node.get_float_value
-        when 'Boolean'
-          current_parse_node.get_float_value
-        when DateTime
-          current_parse_node.get_date_time_value
-        when Time
-          current_parse_node.get_time_value
-        when Date
-          current_parse_node.get_date_value
-        when MicrosoftKiotaAbstractions::ISODuration
-          current_parse_node.get_duration_value
-        when UUIDTools::UUID
-          current_parse_node.get_guid_value
-        else
-          current_parse_node.get_string_value
-        end
+        JsonParseNode.new(object).public_send(reader)
       rescue StandardError => e
-        raise e.class, `Failed to fetch #{type} type`
+        raise e.class, "Failed to fetch #{type} type: #{e.message}"
       end
     end
 
@@ -121,6 +125,8 @@ module MicrosoftKiotaSerializationJson
 
     def get_enum_values(_type)
       raw_values = get_string_value
+      return [] if raw_values.nil?
+
       raw_values.split(',').map(&:strip)
     end
 

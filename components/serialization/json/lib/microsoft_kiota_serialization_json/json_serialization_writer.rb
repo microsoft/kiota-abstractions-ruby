@@ -12,34 +12,48 @@ module MicrosoftKiotaSerializationJson
 
     def initialize
       @writer = {}
+      @root_value = nil
+      @has_root_value = false
     end
 
-    attr_reader :writer
+    attr_reader :writer, :root_value
+
+    # A composed type whose selected member is a primitive serializes the scalar as the whole
+    # document rather than as a member of an object, so a nil key means "this is the root".
+    def set_root_value(value)
+      @root_value = value
+      @has_root_value = true
+      value
+    end
+
+    def root_value?
+      @has_root_value
+    end
 
     def write_string_value(key, value)
-      raise StandardError, 'no key or value included in write_string_value(key, value)' if !key && !value
-      return value.to_s unless key
+      raise StandardError, 'no key or value included in write_string_value(key, value)' if key.nil? && value.nil?
+      return set_root_value(value) if key.nil?
 
-      @writer[key] = (value || nil)
+      @writer[key] = value
     end
 
     def write_boolean_value(key, value)
-      raise StandardError, 'no key or value included in write_boolean_value(key, value)' if !key && !value
-      return value unless key
+      raise StandardError, 'no key or value included in write_boolean_value(key, value)' if key.nil? && value.nil?
+      return set_root_value(value) if key.nil?
 
       @writer[key] = value
     end
 
     def write_number_value(key, value)
-      raise StandardError, 'no key or value included in write_number_value(key, value)' if !key && !value
-      return value unless key
+      raise StandardError, 'no key or value included in write_number_value(key, value)' if key.nil? && value.nil?
+      return set_root_value(value) if key.nil?
 
       @writer[key] = value
     end
 
     def write_float_value(key, value)
-      raise StandardError, 'no key or value included in write_float_value(key, value)' if !key && !value
-      return value unless key
+      raise StandardError, 'no key or value included in write_float_value(key, value)' if key.nil? && value.nil?
+      return set_root_value(value) if key.nil?
 
       @writer[key] = value
     end
@@ -99,13 +113,13 @@ module MicrosoftKiotaSerializationJson
     end
 
     def write_object_value(key, value, *additional_values_to_merge)
-      return unless value
+      values = [value, *additional_values_to_merge].compact
+      return if values.empty?
 
       if key
-        @writer[key] = object_value_hash(value, *additional_values_to_merge)
+        @writer[key] = object_value_hash(*values)
       else
-        value.serialize(self)
-        additional_values_to_merge.each { |v| v&.serialize(self) }
+        values.each { |v| v.serialize(self) }
       end
     end
 
@@ -114,7 +128,7 @@ module MicrosoftKiotaSerializationJson
     end
 
     def get_serialized_content
-      @writer.to_json # TODO: encode to byte array to stay content type agnostic
+      (@has_root_value ? @root_value : @writer).to_json # TODO: encode to byte array to stay content type agnostic
     end
 
     def write_additional_data(value)

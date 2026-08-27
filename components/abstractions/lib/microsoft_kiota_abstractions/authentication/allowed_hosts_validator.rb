@@ -27,7 +27,10 @@ module MicrosoftKiotaAbstractions
 
       return false unless parsed_url.is_a?(URI::HTTPS)
 
-      @allowed_hosts.key? parsed_url.host.downcase
+      hostname = parsed_url.host.downcase
+      return true if @allowed_hosts.key? hostname
+
+      @allowed_hosts.any? { |allowed_host, _| allowed_host.start_with?('.') && hostname.end_with?(allowed_host) }
     rescue URI::InvalidURIError
       false
     end

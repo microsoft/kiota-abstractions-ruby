@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.20.0](https://github.com/microsoft/kiota-ruby/compare/v0.19.0...v0.20.0) (2026-08-27)
+
+
+### Features
+
+* adds support for wildcard host validation ([fc59c2b](https://github.com/microsoft/kiota-ruby/commit/fc59c2b310937fd79763171d6c619bba31002769))
+* adds support for wildcard host validation ([ca42d56](https://github.com/microsoft/kiota-ruby/commit/ca42d5601330777e109f54683d4fc1a20444e82b))
+
 ## [0.19.0](https://github.com/microsoft/kiota-ruby/compare/v0.18.0...v0.19.0) (2026-08-27)
 
 
